@@ -1,0 +1,14 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Codon
+      run: |
+        /bin/bash -c "$(curl -fsSL https://exaloop.io/install.sh)"
+        echo "$HOME/.codon/bin" >> $GITHUB_PATH
+    - name: Test basic functionality
+      run: |
+        echo 'print("CI test passed!")' | codon run -
